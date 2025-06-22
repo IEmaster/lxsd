@@ -1,0 +1,574 @@
+{
+  "categories": [
+    {
+      "name": "旗下网站",
+      "links": [
+        {
+          "name": "zhupay",
+          "url": "https://zhupay.com",
+          "description": "低费率稳定易支付",
+          "weight": 9
+        },
+        {
+          "name": "在线聊天室",
+          "url": "https://chat.idealera.top",
+          "description": "匿名在线聊天网站",
+          "weight": 8
+        },
+        {
+          "name": "影音软件定制",
+          "url": "https://tv.lxsd.cn",
+          "description": "民宿影音一站式解决方案",
+          "weight": 7
+        },
+        {
+          "name": "装机小铺",
+          "url": "https://diy.lxsd.com",
+          "description": "DIYPC扛把子",
+          "weight": 6
+        },
+        {
+          "name": "艾灵论坛",
+          "url": "https://i0mc.com",
+          "description": "我的世界艾灵中文论坛",
+          "weight": 5
+        },
+        {
+          "name": "小铺",
+          "url": "https://a.idealera.top",
+          "description": "卖点想卖的",
+          "weight": 4
+        }
+      ],
+      "weight": 99
+    },
+    {
+      "name": "远控平台",
+      "links": [
+        {
+          "name": "Todesk",
+          "url": "https://www.todesk.com/download.html",
+          "description": "Todesk下载页",
+          "weight": 9
+        },
+        {
+          "name": "向日葵",
+          "url": "https://sunlogin.oray.com/download?categ=personal&sys=windows&ici=sunlogin_navigation",
+          "description": "向日葵下载页",
+          "weight": 5
+        },
+        {
+          "name": "TeamViewer",
+          "url": "https://www.teamviewer.cn/cn/download/free-download-with-license-options/",
+          "description": "TeamViewer下载页",
+          "weight": 2
+        },
+        {
+          "name": "Anydesk",
+          "url": "https://anydesk.com/zhs/downloads/windows",
+          "description": "Anydesk下载页",
+          "weight": 1
+        }
+      ],
+      "weight": 98
+    },
+    {
+      "name": "AI",
+      "links": [
+        {
+          "name": "Kimi",
+          "url": "https://www.kimi.com/",
+          "description": " Kimi - 做ppt还行",
+          "weight": 3
+        },
+        {
+          "name": "DeepSeek",
+          "url": "https://chat.deepseek.com/",
+          "description": "DeepSeek | 深度求索",
+          "weight": 5
+        },
+        {
+          "name": "Chatgpt",
+          "url": "https://chatgpt.com/",
+          "description": "#Chatgpt - OpenAi",
+          "weight": 4
+        },
+        {
+          "name": "豆包",
+          "url": "https://www.doubao.com/",
+          "description": "字节跳动旗下AI智能助手",
+          "weight": 2
+        },
+        {
+          "name": "Cursor",
+          "url": "https://www.cursor.com/",
+          "description": "说是用他猪也会编程",
+          "weight": 1
+        }
+      ],
+      "weight": 97
+    },
+    {
+      "name": "大学牲/摸鱼专栏",
+      "links": [
+        {
+          "name": "学习通",
+          "url": "https://www.chaoxing.com/",
+          "description": "右上角登陆",
+          "weight": 10
+        },
+        {
+          "name": "OCS网课助手",
+          "url": "https://docs.ocsjs.com/",
+          "description": "仔细看教程",
+          "weight": 9
+        },
+        {
+          "name": "Steam",
+          "url": "https://store.steampowered.com/",
+          "description": "Steam官网 右上角下载",
+          "weight": 8
+        },
+        {
+          "name": "Poki",
+          "url": "https://poki.com/zh",
+          "description": "比4399游戏多且点击即玩",
+          "weight": 7
+        },
+        {
+          "name": "在线红警",
+          "url": "https://www.ra2web.com/",
+          "description": "跟随页面引导即可",
+          "weight": 5
+        },
+        {
+          "name": "假装电脑更新",
+          "url": "https://fakeupdate.net/",
+          "description": "右侧选择主题后按F11 退出也是",
+          "weight": 6
+        },
+        {
+          "name": "人生重开模拟器",
+          "url": "https://liferestart.syaro.io/public/",
+          "description": "希望地球爆炸",
+          "weight": 4
+        },
+        {
+          "name": "在线我的世界",
+          "url": "https://eaglercraft.com/",
+          "description": "网络环境差玩不了",
+          "weight": 2
+        },
+        {
+          "name": "城堡叠叠乐",
+          "url": "https://oskarstalberg.com/Townscaper/",
+          "description": "休闲解压点点点",
+          "weight": 3
+        },
+        {
+          "name": "寻找静止的emoji",
+          "url": "http://emojisandearthporn.com/",
+          "description": "费眼",
+          "weight": 1
+        },
+        {
+          "name": "日历拼图",
+          "url": "https://www.daydoku.com/",
+          "description": "好玩",
+          "weight": 0
+        }
+      ],
+      "weight": 96
+    },
+    {
+      "name": "短视频",
+      "links": [
+        {
+          "name": "抖音",
+          "url": "https://www.douyin.com/",
+          "description": "记录美好生活",
+          "weight": 5
+        },
+        {
+          "name": "哔哩哔哩",
+          "url": "https://www.bilibili.com/",
+          "description": "干杯~",
+          "weight": 4
+        },
+        {
+          "name": "小红书",
+          "url": "https://www.xiaohongshu.com/",
+          "description": "听说有不少老外？",
+          "weight": 3
+        },
+        {
+          "name": "快手",
+          "url": "https://www.kuaishou.com/",
+          "description": "黄色吹风机？",
+          "weight": 2
+        },
+        {
+          "name": "youtube",
+          "url": "https://www.youtube.com/",
+          "description": "油管",
+          "weight": 1
+        }
+      ],
+      "weight": 95
+    },
+    {
+      "name": "云服务",
+      "links": [
+        {
+          "name": "阿里云",
+          "url": "https://www.aliyun.com/minisite/goods?userCode=w3it7gq6",
+          "description": "国内御三家之一",
+          "weight": 9
+        },
+        {
+          "name": "腾讯云",
+          "url": "https://curl.qcloud.com/9qKzhgKe",
+          "description": "国内御三家之一",
+          "weight": 8
+        },
+        {
+          "name": "华为云",
+          "url": "https://www.huaweicloud.com/?fromacct=99b32266cc424d7a89c5d694203c4495&utm_source=&utm_medium=&utm_campaign=",
+          "description": "国内御三家之一",
+          "weight": 5
+        },
+        {
+          "name": "野草云",
+          "url": "https://my.yecaoyun.com/aff.php?aff=6111",
+          "description": "便宜，线路不错",
+          "weight": 6
+        },
+        {
+          "name": "UCLOUD",
+          "url": "https://www.ucloud.cn/site/active/hk-global.html?cps_code=G8ZHTYvleuEpG43SQyhAv",
+          "description": "性能一般，线路也一般",
+          "weight": 3
+        },
+        {
+          "name": "vmiss",
+          "url": "https://app.vmiss.com/aff.php?aff=3148",
+          "description": "时不时炸鸡",
+          "weight": 4
+        },
+        {
+          "name": "Cloudflare",
+          "url": "https://www.cloudflare.com/",
+          "description": "互联网大善人",
+          "weight": 7
+        }
+      ],
+      "weight": 91
+    },
+    {
+      "name": "语音软件",
+      "links": [
+        {
+          "name": "kook",
+          "url": "https://www.kookapp.cn/",
+          "description": "CNDISCORD",
+          "weight": 7
+        },
+        {
+          "name": "TT语音",
+          "url": "https://www.52tt.com/",
+          "description": "TT语音官网",
+          "weight": 6
+        },
+        {
+          "name": "OOPZ",
+          "url": "https://oopz.cn/",
+          "description": "还行",
+          "weight": 5
+        },
+        {
+          "name": "yy",
+          "url": "https://www.yy.com/yy8/",
+          "description": "鱼龙混杂",
+          "weight": 4
+        },
+        {
+          "name": "TeamSpeak",
+          "url": "https://teamspeak.com/",
+          "description": "有条件的自己搭个服务器",
+          "weight": 3
+        },
+        {
+          "name": "黑盒语音",
+          "url": "https://chat.xiaoheihe.cn/",
+          "description": "小黑盒加速器出品",
+          "weight": 2
+        },
+        {
+          "name": "NN语音",
+          "url": "https://www.nn.com/",
+          "description": "雷神加速器出品",
+          "weight": 1
+        },
+        {
+          "name": "腾讯会议",
+          "url": "https://meeting.tencent.com/download/",
+          "description": "你还真用它当语音软件啊",
+          "weight": 0
+        },
+        {
+          "name": "discord",
+          "url": "https://discord.com/",
+          "description": "找老外玩去",
+          "weight": 4
+        }
+      ],
+      "weight": 92
+    },
+    {
+      "name": "网站运维",
+      "links": [
+        {
+          "name": "Github",
+          "url": "https://github.com/",
+          "description": "Github",
+          "weight": 9
+        },
+        {
+          "name": "宝塔面板",
+          "url": "https://www.bt.cn/",
+          "description": "bt.cn",
+          "weight": 3
+        },
+        {
+          "name": "炸了么",
+          "url": "https://zhale.me/",
+          "description": "全球拨测",
+          "weight": 8
+        },
+        {
+          "name": "ITDOG",
+          "url": "https://www.itdog.cn/",
+          "description": "更权威的全球拨测",
+          "weight": 7
+        },
+        {
+          "name": "站长工具",
+          "url": "https://tool.chinaz.com/",
+          "description": "站长之家旗下",
+          "weight": 6
+        },
+        {
+          "name": "ip查询",
+          "url": "https://tool.lu/ip",
+          "description": "工具挺多",
+          "weight": 5
+        },
+        {
+          "name": "nodeseek",
+          "url": "https://www.nodeseek.com/",
+          "description": "mjj们的论坛",
+          "weight": 4
+        },
+        {
+          "name": "微信公众平台",
+          "url": "https://mp.weixin.qq.com/",
+          "description": "微信公众号",
+          "weight": 0
+        }
+      ],
+      "weight": 90
+    },
+    {
+      "name": "音乐",
+      "links": [
+        {
+          "name": "网易云音乐",
+          "url": "https://music.163.com/",
+          "description": "用太久习惯了",
+          "weight": 6
+        },
+        {
+          "name": "QQ音乐",
+          "url": "https://y.qq.com/",
+          "description": "你充绿钻吗？",
+          "weight": 5
+        },
+        {
+          "name": "酷狗音乐",
+          "url": "https://www.kugou.com/",
+          "description": "Hello 酷狗！",
+          "weight": 4
+        },
+        {
+          "name": "酷我音乐",
+          "url": "https://kuwo.cn/",
+          "description": "小小的老子接触的第一个音乐平台",
+          "weight": 3
+        },
+        {
+          "name": "汽水音乐",
+          "url": "https://www.qishui.com/",
+          "description": "抖音旗下",
+          "weight": 2
+        },
+        {
+          "name": "spotify",
+          "url": "https://www.spotify.com/",
+          "description": "来自瑞典的音乐服务商",
+          "weight": 1
+        }
+      ],
+      "weight": 94
+    },
+    {
+      "name": "快捷工具",
+      "links": [
+        {
+          "name": "文件传输助手",
+          "url": "https://filehelper.weixin.qq.com/",
+          "description": "微信文件传输助手网页版",
+          "weight": 8
+        },
+        {
+          "name": "Convertio",
+          "url": "https://convertio.co/zh/",
+          "description": "文件转换器",
+          "weight": 7
+        },
+        {
+          "name": "云鸽",
+          "url": "https://yunge.in/",
+          "description": "免登录文件传输",
+          "weight": 9
+        },
+        {
+          "name": "草料二维码",
+          "url": "https://cli.im/",
+          "description": "二维码生成器",
+          "weight": 6
+        },
+        {
+          "name": "鼠标按键测试",
+          "url": "https://cps-check.com/cn/mouse-buttons-test",
+          "description": "测试鼠标按键",
+          "weight": 5
+        },
+        {
+          "name": "屏幕测试",
+          "url": "https://screen.bmcx.com/",
+          "description": "测试显示器是否有坏点",
+          "weight": 4
+        },
+        {
+          "name": "键盘测试",
+          "url": "https://www.zfrontier.com/lab/keyboardTester",
+          "description": "测试键盘功能",
+          "weight": 3
+        },
+        {
+          "name": "屏幕刷新率测试",
+          "url": "https://www.testufo.com/",
+          "description": "测试屏幕刷新率",
+          "weight": 2
+        },
+        {
+          "name": "下载狗",
+          "url": "https://www.xiazaitool.com/",
+          "description": "短视频解析",
+          "weight": 10
+        }
+      ],
+      "weight": 93
+    },
+    {
+      "name": "系统装机",
+      "links": [
+        {
+          "name": "Bandzip",
+          "url": "https://www.bandisoft.com/bandizip/",
+          "description": "好用的压缩软件",
+          "weight": 6
+        },
+        {
+          "name": "火绒安全",
+          "url": "https://www.huorong.cn/",
+          "description": "不流氓的安全软件",
+          "weight": 5
+        },
+        {
+          "name": "HEU_KMS_Activator",
+          "url": "https://github.com/zbezj/HEU_KMS_Activator/releases",
+          "description": "激活windows/office等",
+          "weight": 4
+        },
+        {
+          "name": "Steam",
+          "url": "https://store.steampowered.com/",
+          "description": "Steam官网",
+          "weight": 3
+        },
+        {
+          "name": "微信",
+          "url": "https://weixin.qq.com/",
+          "description": "微信下载页",
+          "weight": 2
+        },
+        {
+          "name": "QQ",
+          "url": "https://im.qq.com/",
+          "description": "QQ下载页",
+          "weight": 1
+        },
+        {
+          "name": "HEU_KMS_Activator",
+          "url": "https://idealera.lanzouq.com/i4BNF2z143ub",
+          "description": "备用地址",
+          "weight": 0
+        },
+        {
+          "name": "Speedtest.im",
+          "url": "http://speedtest.im/",
+          "description": "测速网址",
+          "weight": 0
+        }
+      ],
+      "weight": 89
+    },
+    {
+      "name": "奇奇怪怪的网站",
+      "links": [
+        {
+          "name": "Radiocast",
+          "url": "https://www.radiocast.co/",
+          "description": "听全球电台，甚至能听到将军",
+          "weight": 0
+        },
+        {
+          "name": "Pointer Pointer",
+          "url": "https://pointerpointer.com/",
+          "description": "它总能找到你的鼠标在哪",
+          "weight": 0
+        },
+        {
+          "name": "The Useless web",
+          "url": "https://theuselessweb.com/",
+          "description": "带你去一个没用的网站",
+          "weight": 0
+        },
+        {
+          "name": "声带模拟器",
+          "url": "https://dood.al/pinktrombone/",
+          "description": "叽里咕噜说什么呢",
+          "weight": 0
+        },
+        {
+          "name": "造物模拟器",
+          "url": "https://justtypestuff.com/",
+          "description": "打什么单词就会出现对应物品",
+          "weight": 0
+        }
+      ],
+      "weight": 88
+    }
+  ]
+}

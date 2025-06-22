@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    
+    <!-- 首页 -->
+    <url>
+        <loc>https://lxsd.com/</loc>
+        <lastmod>2025-01-01</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <!-- 管理页面 -->
+    <url>
+        <loc>https://lxsd.com/admin.html</loc>
+        <lastmod>2025-01-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    
+    <!-- 隐私政策 -->
+    <url>
+        <loc>https://lxsd.com/privacy.html</loc>
+        <lastmod>2025-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    
+</urlset> 

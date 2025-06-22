@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理后台 - 理想时代工作室</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --hover-color: #2563eb;
+            --bg-color: #f3f4f6;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        body {
+            background: var(--bg-color);
+            min-height: 100vh;
+        }
+
+        .admin-btn {
+            background: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .admin-btn:hover {
+            background: var(--hover-color);
+            transform: translateY(-2px);
+        }
+
+        .glass-effect {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .status-bar {
+            font-size: 0.875rem;
+            color: #666;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 0.5rem 0.5rem;
+        }
+
+        .category-card {
+            transition: all 0.3s ease;
+            cursor: move;
+        }
+
+        .category-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .category-card.sortable-ghost {
+            opacity: 0.4;
+            background: rgba(79, 70, 229, 0.1);
+            border: 2px dashed var(--primary-color);
+        }
+
+        .category-card.sortable-chosen {
+            transform: scale(1.02);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .link-item {
+            transition: all 0.3s ease;
+        }
+
+        .link-item:hover {
+            transform: translateX(4px);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-6xl mx-auto space-y-6">
+        <!-- 顶部工具栏 -->
+        <div class="glass-effect rounded-xl p-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-gray-800">管理后台</h1>
+            <div class="flex items-center space-x-4">
+                <a href="index.html" class="admin-btn text-white p-3 rounded-full tooltip" title="返回首页">
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                    <span class="tooltip-text">返回首页</span>
+                </a>
+                <button id="addCategoryBtn" class="admin-btn text-white p-3 rounded-full tooltip" type="button" title="添加分类">
+                    <i class="fas fa-folder-plus" aria-hidden="true"></i>
+                    <span class="tooltip-text">添加分类</span>
+                </button>
+                <button id="exportJsonBtn" class="admin-btn text-white p-3 rounded-full tooltip" type="button" title="导出JSON">
+                    <i class="fas fa-file-export" aria-hidden="true"></i>
+                    <span class="tooltip-text">导出JSON (Ctrl+S)</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 分类列表 -->
+        <div id="categoriesList" class="space-y-6">
+            <!-- 分类内容将通过JavaScript动态生成 -->
+        </div>
+
+        <!-- 状态栏 -->
+        <div class="status-bar flex justify-between items-center">
+            <span id="statusMessage">就绪</span>
+            <span id="categoryCount">0 个分类</span>
+        </div>
+    </div>
+
+    <script>
+        let navigationData = { categories: [] };
+        let autoSaveTimeout = null;
+
+        // 加载数据
+        async function loadData() {
+            try {
+                const response = await fetch('data.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                
+                // 验证数据结构
+                if (!data || !Array.isArray(data.categories)) {
+                    throw new Error('无效的数据格式');
+                }
+                
+                // 验证每个分类的数据
+                data.categories.forEach((category, index) => {
+                    if (!category.name || !Array.isArray(category.links)) {
+                        throw new Error(`分类 ${index + 1} 数据格式无效`);
+                    }
+                    category.links.forEach((link, linkIndex) => {
+                        if (!link.name || !link.url) {
+                            throw new Error(`分类 ${index + 1} 中的链接 ${linkIndex + 1} 数据不完整`);
+                        }
+                    });
+                });
+                
+                navigationData = data;
+                renderCategories();
+                updateStatus('数据加载成功', 'success');
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                updateStatus(`加载失败: ${error.message}`, 'error');
+                // 如果加载失败，使用空数据
+                navigationData = { categories: [] };
+                renderCategories();
+            }
+        }
+
+        // 自动保存数据
+        function autoSave() {
+            if (autoSaveTimeout) {
+                clearTimeout(autoSaveTimeout);
+            }
+            autoSaveTimeout = setTimeout(() => {
+                try {
+                    const jsonString = JSON.stringify(navigationData, null, 2);
+                    localStorage.setItem('navigationData_backup', jsonString);
+                    updateStatus('数据已自动保存', 'success');
+                } catch (error) {
+                    console.error('自动保存失败:', error);
+                    updateStatus('自动保存失败', 'error');
+                }
+            }, 1000);
+        }
+
+        // 渲染分类列表
+        function renderCategories() {
+            const container = document.getElementById('categoriesList');
+            container.innerHTML = '';
+            
+            navigationData.categories.forEach((category, categoryIndex) => {
+                const categoryElement = createCategoryElement(category, categoryIndex);
+                container.appendChild(categoryElement);
+            });
+            
+            // 初始化分类卡片的拖拽排序
+            new Sortable(container, {
+                animation: 150,
+                handle: '.category-card',
+                ghostClass: 'sortable-ghost',
+                chosenClass: 'sortable-chosen',
+                onEnd: function(evt) {
+                    // 更新分类顺序
+                    const newOrder = Array.from(container.children).map(el => {
+                        const categoryIndex = parseInt(el.dataset.categoryIndex);
+                        return navigationData.categories[categoryIndex];
+                    });
+                    navigationData.categories = newOrder;
+                    autoSave();
+                    updateStatus('分类顺序已更新', 'success');
+                }
+            });
+            
+            updateCategoryCount();
+        }
+
+        // 创建分类元素
+        function createCategoryElement(category, categoryIndex) {
+            const categoryCard = document.createElement('div');
+            categoryCard.className = 'category-card glass-effect rounded-xl p-6';
+            categoryCard.dataset.categoryIndex = categoryIndex;
+            
+            categoryCard.innerHTML = `
+                <div class="flex justify-between items-center mb-4">
+                    <div class="flex items-center space-x-4">
+                        <input type="number" class="category-weight w-16 text-center bg-transparent border-b-2 border-transparent focus:border-blue-500 focus:outline-none" value="${category.weight || 0}" placeholder="权重" min="0" step="1">
+                        <input type="text" class="category-name text-xl font-bold bg-transparent border-b-2 border-transparent focus:border-blue-500 focus:outline-none" value="${category.name}" placeholder="分类名称">
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button class="add-link-btn admin-btn text-white p-2 rounded-full tooltip" type="button" title="添加链接">
+                            <i class="fas fa-plus" aria-hidden="true"></i>
+                            <span class="tooltip-text">添加链接</span>
+                        </button>
+                        <button class="delete-category-btn admin-btn text-white p-2 rounded-full tooltip" type="button" title="删除分类">
+                            <i class="fas fa-trash" aria-hidden="true"></i>
+                            <span class="tooltip-text">删除分类</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="links-list space-y-3">
+                    ${category.links.map((link, linkIndex) => createLinkHTML(link, categoryIndex, linkIndex)).join('')}
+                </div>
+            `;
+            
+            // 添加事件监听器
+            const nameInput = categoryCard.querySelector('.category-name');
+            nameInput.addEventListener('change', () => updateCategoryName(categoryIndex, nameInput.value));
+            
+            const weightInput = categoryCard.querySelector('.category-weight');
+            weightInput.addEventListener('change', () => updateCategoryWeight(categoryIndex, parseInt(weightInput.value) || 0));
+            
+            const addLinkBtn = categoryCard.querySelector('.add-link-btn');
+            addLinkBtn.addEventListener('click', () => addLink(categoryIndex));
+            
+            const deleteCategoryBtn = categoryCard.querySelector('.delete-category-btn');
+            deleteCategoryBtn.addEventListener('click', () => deleteCategory(categoryIndex));
+            
+            // 为链接添加事件监听器
+            categoryCard.querySelectorAll('.link-item').forEach((linkItem, linkIndex) => {
+                const nameInput = linkItem.querySelector('.link-name');
+                const urlInput = linkItem.querySelector('.link-url');
+                const descriptionInput = linkItem.querySelector('.link-description');
+                const deleteLinkBtn = linkItem.querySelector('.delete-link-btn');
+                
+                nameInput.addEventListener('change', () => updateLink(categoryIndex, linkIndex, 'name', nameInput.value));
+                urlInput.addEventListener('change', () => updateLink(categoryIndex, linkIndex, 'url', urlInput.value));
+                descriptionInput.addEventListener('change', () => updateLink(categoryIndex, linkIndex, 'description', descriptionInput.value));
+                deleteLinkBtn.addEventListener('click', () => deleteLink(categoryIndex, linkIndex));
+            });
+            
+            return categoryCard;
+        }
+
+        // 创建链接HTML
+        function createLinkHTML(link, categoryIndex, linkIndex) {
+            return `
+                <div class="link-item glass-effect rounded-lg p-4 flex items-center justify-between" data-link-index="${linkIndex}">
+                    <div class="flex-1 space-y-2">
+                        <div class="flex items-center space-x-2">
+                            <input type="number" class="link-weight w-16 text-center bg-transparent border-b-2 border-transparent focus:border-blue-500 focus:outline-none" value="${link.weight || 0}" placeholder="权重" min="0" step="1">
+                            <input type="text" class="link-name text-lg font-medium bg-transparent border-b-2 border-transparent focus:border-blue-500 focus:outline-none" value="${link.name}" placeholder="链接名称">
+                            <input type="url" class="link-url text-sm bg-transparent border-b-2 border-transparent focus:border-blue-500 focus:outline-none" value="${link.url}" placeholder="链接地址">
+                        </div>
+                        <input type="text" class="link-description text-sm bg-transparent border-b-2 border-transparent focus:border-blue-500 focus:outline-none w-full" value="${link.description}" placeholder="链接描述">
+                    </div>
+                    <div class="flex items-center space-x-2 ml-4">
+                        <button class="delete-link-btn admin-btn text-white p-2 rounded-full tooltip" type="button" title="删除链接">
+                            <i class="fas fa-times" aria-hidden="true"></i>
+                            <span class="tooltip-text">删除链接</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 更新分类名称
+        function updateCategoryName(categoryIndex, newName) {
+            if (!newName.trim()) {
+                updateStatus('分类名称不能为空', 'error');
+                return;
+            }
+            navigationData.categories[categoryIndex].name = newName;
+            autoSave();
+            updateStatus('分类名称已更新', 'success');
+        }
+
+        // 更新分类权重
+        function updateCategoryWeight(categoryIndex, weight) {
+            navigationData.categories[categoryIndex].weight = weight;
+            autoSave();
+            updateStatus('分类权重已更新', 'success');
+        }
+
+        // 添加分类
+        function addCategory() {
+            navigationData.categories.push({
+                name: '新分类',
+                weight: 0,
+                links: []
+            });
+            renderCategories();
+            autoSave();
+            updateStatus('已添加新分类', 'success');
+        }
+
+        // 删除分类
+        function deleteCategory(categoryIndex) {
+            if (confirm('确定要删除这个分类吗？')) {
+                navigationData.categories.splice(categoryIndex, 1);
+                renderCategories();
+                autoSave();
+                updateStatus('分类已删除', 'success');
+            }
+        }
+
+        // 添加链接
+        function addLink(categoryIndex) {
+            navigationData.categories[categoryIndex].links.push({
+                name: '新链接',
+                url: 'https://',
+                description: '',
+                weight: 0
+            });
+            renderCategories();
+            autoSave();
+            updateStatus('已添加新链接', 'success');
+        }
+
+        // 删除链接
+        function deleteLink(categoryIndex, linkIndex) {
+            if (confirm('确定要删除这个链接吗？')) {
+                navigationData.categories[categoryIndex].links.splice(linkIndex, 1);
+                renderCategories();
+                autoSave();
+                updateStatus('链接已删除', 'success');
+            }
+        }
+
+        // 更新链接信息
+        function updateLink(categoryIndex, linkIndex, field, value) {
+            if (field === 'url' && !value.startsWith('http://') && !value.startsWith('https://')) {
+                value = 'https://' + value;
+            }
+            navigationData.categories[categoryIndex].links[linkIndex][field] = value;
+            autoSave();
+            updateStatus('链接信息已更新', 'success');
+        }
+
+        // 导出JSON
+        function exportJSON() {
+            try {
+                // 获取当前DOM中的分类顺序
+                const container = document.getElementById('categoriesList');
+                const categoryElements = container.querySelectorAll('.category-card');
+                const orderedCategories = Array.from(categoryElements).map(el => {
+                    const categoryIndex = parseInt(el.dataset.categoryIndex);
+                    const category = navigationData.categories[categoryIndex];
+                    
+                    // 获取当前分类中的链接顺序
+                    const linksContainer = el.querySelector('.links-list');
+                    const linkElements = linksContainer.querySelectorAll('.link-item');
+                    const orderedLinks = Array.from(linkElements).map(linkEl => {
+                        const linkIndex = parseInt(linkEl.dataset.linkIndex);
+                        const link = category.links[linkIndex];
+                        // 更新链接权重
+                        const weightInput = linkEl.querySelector('.link-weight');
+                        link.weight = parseInt(weightInput.value) || 0;
+                        return link;
+                    });
+                    
+                    // 更新分类权重
+                    const weightInput = el.querySelector('.category-weight');
+                    category.weight = parseInt(weightInput.value) || 0;
+                    
+                    // 返回更新了链接顺序的分类
+                    return {
+                        ...category,
+                        links: orderedLinks
+                    };
+                });
+
+                // 创建新的有序数据对象
+                const orderedData = {
+                    categories: orderedCategories
+                };
+
+                const jsonString = JSON.stringify(orderedData, null, 2);
+                const blob = new Blob([jsonString], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'data.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                updateStatus('文件已准备下载', 'success');
+            } catch (error) {
+                console.error('导出失败:', error);
+                updateStatus('导出失败: ' + error.message, 'error');
+            }
+        }
+
+        // 更新分类计数
+        function updateCategoryCount() {
+            const count = navigationData.categories.length;
+            document.getElementById('categoryCount').textContent = `${count} 个分类`;
+        }
+
+        // 更新状态栏
+        function updateStatus(message, type = 'info') {
+            const statusElement = document.getElementById('statusMessage');
+            statusElement.textContent = message;
+            statusElement.className = type === 'error' ? 'text-red-500' : type === 'success' ? 'text-green-500' : 'text-gray-600';
+        }
+
+        // 事件监听器
+        document.getElementById('addCategoryBtn').addEventListener('click', addCategory);
+        document.getElementById('exportJsonBtn').addEventListener('click', exportJSON);
+
+        // 快捷键支持
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                exportJSON();
+            }
+        });
+
+        // 页面加载完成后加载数据
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            
+            // 尝试从本地存储恢复数据
+            try {
+                const backup = localStorage.getItem('navigationData_backup');
+                if (backup) {
+                    const backupData = JSON.parse(backup);
+                    if (backupData && Array.isArray(backupData.categories)) {
+                        navigationData = backupData;
+                        renderCategories();
+                        updateStatus('已从本地备份恢复数据', 'success');
+                    }
+                }
+            } catch (error) {
+                console.error('恢复备份失败:', error);
+            }
+        });
+    </script>
+</body>
+</html> 
